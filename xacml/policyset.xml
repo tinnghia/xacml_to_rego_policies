@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xacml3:PolicySet xmlns:xacml3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+                  PolicySetId="d0754651-c15a-41fc-8aac-ef95920aa7a3"
+                  Version="1.0"
+                  PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:policy-combining-algorithm:deny-unless-permit">
+    <xacml3:Description>Marketing PolicySet</xacml3:Description>
+    <xacml3:PolicySetDefaults>
+        <xacml3:XPathVersion>http://www.w3.org/TR/1999/REC-xpath-19991116</xacml3:XPathVersion>
+    </xacml3:PolicySetDefaults>
+    <xacml3:Target></xacml3:Target>
+    <xacml3:Policy PolicyId="a12bd6d7-c1a0-48a7-9cb7-1a75420d1351"
+                   Version="1.0"
+                   RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit">
+        <xacml3:Description>Marketing General Policy</xacml3:Description>
+        <xacml3:PolicyDefaults>
+            <xacml3:XPathVersion>http://www.w3.org/TR/1999/REC-xpath-19991116</xacml3:XPathVersion>
+        </xacml3:PolicyDefaults>
+        <xacml3:Target>
+            <xacml3:AnyOf>
+                <xacml3:AllOf>
+                    <xacml3:Match MatchId="urn:oasis:names:tc:xacml:3.0:function:anyURI-starts-with">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/marketing/
+                        </xacml3:AttributeValue>
+                        <xacml3:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                                                    AttributeId="engine.resource"
+                                                    DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+                                                    MustBePresent="false"/>
+                    </xacml3:Match>
+                </xacml3:AllOf>
+            </xacml3:AnyOf>
+        </xacml3:Target>
+        <xacml3:Rule RuleId="da03daae-ee36-498e-b487-63a04dbe970f"
+                     Effect="Permit">
+            <xacml3:Description>GET-POST Rule</xacml3:Description>
+            <xacml3:Target>
+                <xacml3:AnyOf>
+                    <xacml3:AllOf>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:3.0:function:string-equal-ignore-case">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET
+                            </xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                    Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"
+                                    AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"
+                                    DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="false"/>
+                        </xacml3:Match>
+                    </xacml3:AllOf>
+                    <xacml3:AllOf>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:3.0:function:string-equal-ignore-case">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">POST
+                            </xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                    Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"
+                                    AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"
+                                    DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="false"/>
+                        </xacml3:Match>
+                    </xacml3:AllOf>
+                </xacml3:AnyOf>
+            </xacml3:Target>
+            <xacml3:Condition>
+                <xacml3:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                    <xacml3:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                        <xacml3:AttributeDesignator
+                                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                AttributeId="Attributes.access_subject.LoginUserName"
+                                DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="false"/>
+                    </xacml3:Apply>
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">1</xacml3:AttributeValue>
+                </xacml3:Apply>
+            </xacml3:Condition>
+        </xacml3:Rule>
+        <xacml3:ObligationExpressions>
+            <xacml3:ObligationExpression ObligationId="attributes:authentication" FulfillOn="Deny">
+                <xacml3:AttributeAssignmentExpression AttributeId="attributes:authentication:ChallengeType">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">BASIC
+                    </xacml3:AttributeValue>
+                </xacml3:AttributeAssignmentExpression>
+                <xacml3:AttributeAssignmentExpression AttributeId="attributes:session:IdleTTL">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">3600
+                    </xacml3:AttributeValue>
+                </xacml3:AttributeAssignmentExpression>
+                <xacml3:AttributeAssignmentExpression AttributeId="attributes:session:MaxTTL">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">7200
+                    </xacml3:AttributeValue>
+                </xacml3:AttributeAssignmentExpression>
+            </xacml3:ObligationExpression>
+        </xacml3:ObligationExpressions>
+        <xacml3:AdviceExpressions>
+            <xacml3:AdviceExpression AdviceId="attributes:session" AppliesTo="Permit">
+                <xacml3:AttributeAssignmentExpression AttributeId="attributes:session:IdleTTL">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">3600
+                    </xacml3:AttributeValue>
+                </xacml3:AttributeAssignmentExpression>
+                <xacml3:AttributeAssignmentExpression AttributeId="attributes:session:MaxTTL">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">7200
+                    </xacml3:AttributeValue>
+                </xacml3:AttributeAssignmentExpression>
+            </xacml3:AdviceExpression>
+        </xacml3:AdviceExpressions>
+    </xacml3:Policy>
+    <xacml3:Policy PolicyId="a12bd6d7-c1a0-48a7-9cb7-1a75420d1351"
+                   Version="1.0"
+                   RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit">
+        <xacml3:Description>Marketing Competitors Policy</xacml3:Description>
+        <xacml3:PolicyDefaults>
+            <xacml3:XPathVersion>http://www.w3.org/TR/1999/REC-xpath-19991116</xacml3:XPathVersion>
+        </xacml3:PolicyDefaults>
+        <xacml3:Target>
+            <xacml3:AnyOf>
+                <xacml3:AllOf>
+                    <xacml3:Match MatchId="urn:oasis:names:tc:xacml:3.0:function:anyURI-starts-with">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/marketing/competitors/
+                        </xacml3:AttributeValue>
+                        <xacml3:AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                                                    AttributeId="engine.resource"
+                                                    DataType="http://www.w3.org/2001/XMLSchema#anyURI"
+                                                    MustBePresent="false"/>
+                    </xacml3:Match>
+                </xacml3:AllOf>
+            </xacml3:AnyOf>
+        </xacml3:Target>
+        <xacml3:Rule RuleId="da03daae-ee36-498e-b487-63a04dbe970f"
+                     Effect="Permit">
+            <xacml3:Description>GET-POST Rule</xacml3:Description>
+            <xacml3:Target>
+                <xacml3:AnyOf>
+                    <xacml3:AllOf>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:3.0:function:string-equal-ignore-case">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET
+                            </xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                    Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"
+                                    AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"
+                                    DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="false"/>
+                        </xacml3:Match>
+                    </xacml3:AllOf>
+                    <xacml3:AllOf>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:3.0:function:string-equal-ignore-case">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">POST
+                            </xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                    Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"
+                                    AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"
+                                    DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="false"/>
+                        </xacml3:Match>
+                    </xacml3:AllOf>
+                </xacml3:AnyOf>
+            </xacml3:Target>
+            <xacml3:Condition>
+                <xacml3:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-equal">
+                    <xacml3:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag-size">
+                        <xacml3:AttributeDesignator
+                                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                AttributeId="Attributes.access_subject.LoginUserName"
+                                DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="false"/>
+                    </xacml3:Apply>
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">1</xacml3:AttributeValue>
+                </xacml3:Apply>
+            </xacml3:Condition>
+        </xacml3:Rule>
+        <xacml3:ObligationExpressions>
+            <xacml3:ObligationExpression ObligationId="attributes:authentication" FulfillOn="Deny">
+                <xacml3:AttributeAssignmentExpression AttributeId="attributes:authentication:ChallengeType">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">REDIRECT
+                    </xacml3:AttributeValue>
+                </xacml3:AttributeAssignmentExpression>
+                <xacml3:AttributeAssignmentExpression AttributeId="attributes:authentication:ChallengeData">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">http%3A%2F%2Flocalhost%2Flogin
+                    </xacml3:AttributeValue>
+                </xacml3:AttributeAssignmentExpression>
+                <xacml3:AttributeAssignmentExpression AttributeId="attributes:session:IdleTTL">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">3600
+                    </xacml3:AttributeValue>
+                </xacml3:AttributeAssignmentExpression>
+                <xacml3:AttributeAssignmentExpression AttributeId="attributes:session:MaxTTL">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">7200
+                    </xacml3:AttributeValue>
+                </xacml3:AttributeAssignmentExpression>
+            </xacml3:ObligationExpression>
+        </xacml3:ObligationExpressions>
+        <xacml3:AdviceExpressions>
+            <xacml3:AdviceExpression AdviceId="attributes:session" AppliesTo="Permit">
+                <xacml3:AttributeAssignmentExpression AttributeId="attributes:session:IdleTTL">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">3600
+                    </xacml3:AttributeValue>
+                </xacml3:AttributeAssignmentExpression>
+                <xacml3:AttributeAssignmentExpression AttributeId="attributes:session:MaxTTL">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">7200
+                    </xacml3:AttributeValue>
+                </xacml3:AttributeAssignmentExpression>
+            </xacml3:AdviceExpression>
+        </xacml3:AdviceExpressions>
+    </xacml3:Policy>
+</xacml3:PolicySet>
