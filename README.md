@@ -1,5 +1,5 @@
 # xacml_to_rego_policies
-[Xacml](https://docs.oasis-open.org/xacml/3.0/xacml-3.0-core-spec-os-en.html) to [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) policies collection
+[XACML](https://docs.oasis-open.org/xacml/3.0/xacml-3.0-core-spec-os-en.html) to [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) policies collection
 
 A sample conversion demonstrating how to translate an XACML-based policy, defined in XML, into a Rego-policy, expressed as code
 
@@ -14,11 +14,11 @@ A sample conversion demonstrating how to translate an XACML-based policy, define
 
 The algorithm used in both is Deny Unless Permit
 
-The equivalent Rego policies are organized in a subdirectory named **[policy](xacml_to_rego_policies/policy)**
-* [base.rego](xacml_to_rego_policies/policy/base.rego) : mocking data 
-* [general_marketing_policy.rego](xacml_to_rego_policies/policy/general_marketing_policy.rego): marketing department general policy
-* [marketing_competitors_policy.rego](xacml_to_rego_policies/policy/marketing_competitors_policy.rego): marketing competitors group policy
-* [marketing.rego](xacml_to_rego_policies/policy/marketing.rego): main policy for marketing department
+The equivalent Rego policies are organized in a subdirectory named **[policy](policy)**
+* [base.rego](policy/base.rego) : mocking data 
+* [general_marketing_policy.rego](policy/general_marketing_policy.rego): marketing department general policy
+* [marketing_competitors_policy.rego](policy/marketing_competitors_policy.rego): marketing competitors group policy
+* [marketing.rego](policy/marketing.rego): main policy for marketing department
 
 While Axiomatics offers [ALFA](https://axiomatics.com/blog/ten-years-of-alfa) as a policy-as-code language for XACML, Rego stands out as a more flexible and user-friendly alternative.
 
