@@ -12,9 +12,9 @@ A sample conversion demonstrating how to translate an XACML-based policy, define
 * General policy for the Marketing department
 * Competitors group policy within the Marketing department
 
-The algorithm used in both is Deny Unless Permit
+_The algorithm used in both is Deny Unless Permit_
 
-The equivalent Rego policies are organized in a subdirectory named **[policy](policy)**
+### The equivalent Rego policies are organized in a subdirectory named **[policy](policy)**
 * [base.rego](policy/base.rego) : mocking data 
 * [general_marketing_policy.rego](policy/general_marketing_policy.rego): marketing department general policy
 * [marketing_competitors_policy.rego](policy/marketing_competitors_policy.rego): marketing competitors group policy
